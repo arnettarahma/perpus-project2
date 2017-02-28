@@ -1,0 +1,552 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DBPerpusModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="buku">
+          <Key>
+            <PropertyRef Name="id_buku" />
+          </Key>
+          <Property Name="id_buku" Type="int" Nullable="false" />
+          <Property Name="ISBN" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="judul" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="penulis" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="penerbit" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="tahun" Type="int" Nullable="false" />
+          <Property Name="stok" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="laporan">
+          <Key>
+            <PropertyRef Name="id_laporan" />
+          </Key>
+          <Property Name="id_laporan" Type="int" Nullable="false" />
+          <Property Name="id_buku" Type="int" Nullable="false" />
+          <Property Name="id_pelanggan" Type="int" Nullable="false" />
+          <Property Name="keterangan" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="tgl_pinjam" Type="date" Nullable="false" />
+          <Property Name="tgl_kembali" Type="int" Nullable="false" />
+          <Property Name="saldo" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="lookuprole">
+          <Key>
+            <PropertyRef Name="lookuproleid" />
+          </Key>
+          <Property Name="lookuproleid" Type="int" Nullable="false" />
+          <Property Name="rolename" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="roledescription" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="rowcreatedsysuserid" Type="int" Nullable="false" />
+          <Property Name="rowcreateddatetime" Type="datetime" Nullable="false" />
+          <Property Name="rowmodifiedsysuserid" Type="int" Nullable="false" />
+          <Property Name="rowmodifieddatetime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="pelanggan">
+          <Key>
+            <PropertyRef Name="id_pelanggan" />
+          </Key>
+          <Property Name="id_pelanggan" Type="int" Nullable="false" />
+          <Property Name="no_id" Type="int" Nullable="false" />
+          <Property Name="nama" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="alamat" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="no_tlp1" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="no_tlp2" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DBPerpus.dbo.sysuser' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="sysuser">
+          <Key>
+            <PropertyRef Name="sysuserid" />
+            <PropertyRef Name="loginname" />
+            <PropertyRef Name="passwordencryptedtext" />
+            <PropertyRef Name="rowcreatedsysuserid" />
+            <PropertyRef Name="rowcreateddatetime" />
+            <PropertyRef Name="rowmodifiedsysuserid" />
+            <PropertyRef Name="rowmodifieddatetime" />
+          </Key>
+          <Property Name="sysuserid" Type="int" Nullable="false" />
+          <Property Name="loginname" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="passwordencryptedtext" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="rowcreatedsysuserid" Type="int" Nullable="false" />
+          <Property Name="rowcreateddatetime" Type="datetime" Nullable="false" />
+          <Property Name="rowmodifiedsysuserid" Type="int" Nullable="false" />
+          <Property Name="rowmodifieddatetime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysuserprofile">
+          <Key>
+            <PropertyRef Name="sysuserprofileid" />
+          </Key>
+          <Property Name="sysuserprofileid" Type="int" Nullable="false" />
+          <Property Name="sysuserid" Type="int" Nullable="false" />
+          <Property Name="firstname" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="lastname" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="gender" Type="char" MaxLength="255" Nullable="false" />
+          <Property Name="rowcreatedsysuserid" Type="int" Nullable="false" />
+          <Property Name="rowcreateddatetime" Type="datetime" Nullable="false" />
+          <Property Name="rowmodifiedsysuserid" Type="int" Nullable="false" />
+          <Property Name="rowmodifieddatetime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysuserrole">
+          <Key>
+            <PropertyRef Name="sysuserroleid" />
+          </Key>
+          <Property Name="sysuserroleid" Type="int" Nullable="false" />
+          <Property Name="sysuserid" Type="int" Nullable="false" />
+          <Property Name="lookuproleid" Type="int" Nullable="false" />
+          <Property Name="isactive" Type="bit" Nullable="false" />
+          <Property Name="rowcreatedsysuserid" Type="int" Nullable="false" />
+          <Property Name="rowcreateddatetime" Type="datetime" Nullable="false" />
+          <Property Name="rowmodifiedsysuserid" Type="int" Nullable="false" />
+          <Property Name="rowmodifieddatetime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_laporan_buku">
+          <End Role="buku" Type="Self.buku" Multiplicity="1" />
+          <End Role="laporan" Type="Self.laporan" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="buku">
+              <PropertyRef Name="id_buku" />
+            </Principal>
+            <Dependent Role="laporan">
+              <PropertyRef Name="id_laporan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_laporan_pelanggan">
+          <End Role="pelanggan" Type="Self.pelanggan" Multiplicity="1" />
+          <End Role="laporan" Type="Self.laporan" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="pelanggan">
+              <PropertyRef Name="id_pelanggan" />
+            </Principal>
+            <Dependent Role="laporan">
+              <PropertyRef Name="id_laporan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sysuser_sysuserprofile">
+          <End Role="sysuserprofile" Type="Self.sysuserprofile" Multiplicity="1" />
+          <End Role="sysuser" Type="Self.sysuser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sysuserprofile">
+              <PropertyRef Name="sysuserprofileid" />
+            </Principal>
+            <Dependent Role="sysuser">
+              <PropertyRef Name="sysuserid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sysuser_sysuserrole">
+          <End Role="sysuserrole" Type="Self.sysuserrole" Multiplicity="1" />
+          <End Role="sysuser" Type="Self.sysuser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sysuserrole">
+              <PropertyRef Name="sysuserroleid" />
+            </Principal>
+            <Dependent Role="sysuser">
+              <PropertyRef Name="sysuserid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sysuserrole_lookuprole">
+          <End Role="lookuprole" Type="Self.lookuprole" Multiplicity="1" />
+          <End Role="sysuserrole" Type="Self.sysuserrole" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="lookuprole">
+              <PropertyRef Name="lookuproleid" />
+            </Principal>
+            <Dependent Role="sysuserrole">
+              <PropertyRef Name="sysuserroleid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBPerpusModelStoreContainer">
+          <EntitySet Name="buku" EntityType="Self.buku" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="laporan" EntityType="Self.laporan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="lookuprole" EntityType="Self.lookuprole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="pelanggan" EntityType="Self.pelanggan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysuserprofile" EntityType="Self.sysuserprofile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysuserrole" EntityType="Self.sysuserrole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysuser" EntityType="Self.sysuser" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [sysuser].[sysuserid] AS [sysuserid], 
+    [sysuser].[loginname] AS [loginname], 
+    [sysuser].[passwordencryptedtext] AS [passwordencryptedtext], 
+    [sysuser].[rowcreatedsysuserid] AS [rowcreatedsysuserid], 
+    [sysuser].[rowcreateddatetime] AS [rowcreateddatetime], 
+    [sysuser].[rowmodifiedsysuserid] AS [rowmodifiedsysuserid], 
+    [sysuser].[rowmodifieddatetime] AS [rowmodifieddatetime]
+    FROM [dbo].[sysuser] AS [sysuser]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_laporan_buku" Association="Self.FK_laporan_buku">
+            <End Role="buku" EntitySet="buku" />
+            <End Role="laporan" EntitySet="laporan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_laporan_pelanggan" Association="Self.FK_laporan_pelanggan">
+            <End Role="pelanggan" EntitySet="pelanggan" />
+            <End Role="laporan" EntitySet="laporan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sysuser_sysuserprofile" Association="Self.FK_sysuser_sysuserprofile">
+            <End Role="sysuserprofile" EntitySet="sysuserprofile" />
+            <End Role="sysuser" EntitySet="sysuser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sysuser_sysuserrole" Association="Self.FK_sysuser_sysuserrole">
+            <End Role="sysuserrole" EntitySet="sysuserrole" />
+            <End Role="sysuser" EntitySet="sysuser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sysuserrole_lookuprole" Association="Self.FK_sysuserrole_lookuprole">
+            <End Role="lookuprole" EntitySet="lookuprole" />
+            <End Role="sysuserrole" EntitySet="sysuserrole" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DBPerpusModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="buku">
+          <Key>
+            <PropertyRef Name="id_buku" />
+          </Key>
+          <Property Name="id_buku" Type="Int32" Nullable="false" />
+          <Property Name="ISBN" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="judul" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="penulis" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="penerbit" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tahun" Type="Int32" Nullable="false" />
+          <Property Name="stok" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="laporan" Relationship="Self.FK_laporan_buku" FromRole="buku" ToRole="laporan" />
+        </EntityType>
+        <EntityType Name="laporan">
+          <Key>
+            <PropertyRef Name="id_laporan" />
+          </Key>
+          <Property Name="id_laporan" Type="Int32" Nullable="false" />
+          <Property Name="id_buku" Type="Int32" Nullable="false" />
+          <Property Name="id_pelanggan" Type="Int32" Nullable="false" />
+          <Property Name="keterangan" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tgl_pinjam" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="tgl_kembali" Type="Int32" Nullable="false" />
+          <Property Name="saldo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="buku" Relationship="Self.FK_laporan_buku" FromRole="laporan" ToRole="buku" />
+          <NavigationProperty Name="pelanggan" Relationship="Self.FK_laporan_pelanggan" FromRole="laporan" ToRole="pelanggan" />
+        </EntityType>
+        <EntityType Name="lookuprole">
+          <Key>
+            <PropertyRef Name="lookuproleid" />
+          </Key>
+          <Property Name="lookuproleid" Type="Int32" Nullable="false" />
+          <Property Name="rolename" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="roledescription" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="rowcreatedsysuserid" Type="Int32" Nullable="false" />
+          <Property Name="rowcreateddatetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="rowmodifiedsysuserid" Type="Int32" Nullable="false" />
+          <Property Name="rowmodifieddatetime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="sysuserrole" Relationship="Self.FK_sysuserrole_lookuprole" FromRole="lookuprole" ToRole="sysuserrole" />
+        </EntityType>
+        <EntityType Name="pelanggan">
+          <Key>
+            <PropertyRef Name="id_pelanggan" />
+          </Key>
+          <Property Name="id_pelanggan" Type="Int32" Nullable="false" />
+          <Property Name="no_id" Type="Int32" Nullable="false" />
+          <Property Name="nama" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="alamat" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="no_tlp1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="no_tlp2" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="laporan" Relationship="Self.FK_laporan_pelanggan" FromRole="pelanggan" ToRole="laporan" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="sysuserprofile">
+          <Key>
+            <PropertyRef Name="sysuserprofileid" />
+          </Key>
+          <Property Name="sysuserprofileid" Type="Int32" Nullable="false" />
+          <Property Name="sysuserid" Type="Int32" Nullable="false" />
+          <Property Name="firstname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="lastname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="gender" Type="String" MaxLength="255" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="rowcreatedsysuserid" Type="Int32" Nullable="false" />
+          <Property Name="rowcreateddatetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="rowmodifiedsysuserid" Type="Int32" Nullable="false" />
+          <Property Name="rowmodifieddatetime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="sysusers" Relationship="Self.FK_sysuser_sysuserprofile" FromRole="sysuserprofile" ToRole="sysuser" />
+        </EntityType>
+        <EntityType Name="sysuserrole">
+          <Key>
+            <PropertyRef Name="sysuserroleid" />
+          </Key>
+          <Property Name="sysuserroleid" Type="Int32" Nullable="false" />
+          <Property Name="sysuserid" Type="Int32" Nullable="false" />
+          <Property Name="lookuproleid" Type="Int32" Nullable="false" />
+          <Property Name="isactive" Type="Boolean" Nullable="false" />
+          <Property Name="rowcreatedsysuserid" Type="Int32" Nullable="false" />
+          <Property Name="rowcreateddatetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="rowmodifiedsysuserid" Type="Int32" Nullable="false" />
+          <Property Name="rowmodifieddatetime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="lookuprole" Relationship="Self.FK_sysuserrole_lookuprole" FromRole="sysuserrole" ToRole="lookuprole" />
+          <NavigationProperty Name="sysusers" Relationship="Self.FK_sysuser_sysuserrole" FromRole="sysuserrole" ToRole="sysuser" />
+        </EntityType>
+        <EntityType Name="sysuser">
+          <Key>
+            <PropertyRef Name="sysuserid" />
+            <PropertyRef Name="loginname" />
+            <PropertyRef Name="passwordencryptedtext" />
+            <PropertyRef Name="rowcreatedsysuserid" />
+            <PropertyRef Name="rowcreateddatetime" />
+            <PropertyRef Name="rowmodifiedsysuserid" />
+            <PropertyRef Name="rowmodifieddatetime" />
+          </Key>
+          <Property Name="sysuserid" Type="Int32" Nullable="false" />
+          <Property Name="loginname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="passwordencryptedtext" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="rowcreatedsysuserid" Type="Int32" Nullable="false" />
+          <Property Name="rowcreateddatetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="rowmodifiedsysuserid" Type="Int32" Nullable="false" />
+          <Property Name="rowmodifieddatetime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="sysuserprofile" Relationship="Self.FK_sysuser_sysuserprofile" FromRole="sysuser" ToRole="sysuserprofile" />
+          <NavigationProperty Name="sysuserrole" Relationship="Self.FK_sysuser_sysuserrole" FromRole="sysuser" ToRole="sysuserrole" />
+        </EntityType>
+        <Association Name="FK_laporan_buku">
+          <End Role="buku" Type="Self.buku" Multiplicity="1" />
+          <End Role="laporan" Type="Self.laporan" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="buku">
+              <PropertyRef Name="id_buku" />
+            </Principal>
+            <Dependent Role="laporan">
+              <PropertyRef Name="id_laporan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_laporan_pelanggan">
+          <End Role="pelanggan" Type="Self.pelanggan" Multiplicity="1" />
+          <End Role="laporan" Type="Self.laporan" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="pelanggan">
+              <PropertyRef Name="id_pelanggan" />
+            </Principal>
+            <Dependent Role="laporan">
+              <PropertyRef Name="id_laporan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sysuserrole_lookuprole">
+          <End Role="lookuprole" Type="Self.lookuprole" Multiplicity="1" />
+          <End Role="sysuserrole" Type="Self.sysuserrole" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="lookuprole">
+              <PropertyRef Name="lookuproleid" />
+            </Principal>
+            <Dependent Role="sysuserrole">
+              <PropertyRef Name="sysuserroleid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sysuser_sysuserprofile">
+          <End Role="sysuserprofile" Type="Self.sysuserprofile" Multiplicity="1" />
+          <End Role="sysuser" Type="Self.sysuser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sysuserprofile">
+              <PropertyRef Name="sysuserprofileid" />
+            </Principal>
+            <Dependent Role="sysuser">
+              <PropertyRef Name="sysuserid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sysuser_sysuserrole">
+          <End Role="sysuserrole" Type="Self.sysuserrole" Multiplicity="1" />
+          <End Role="sysuser" Type="Self.sysuser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sysuserrole">
+              <PropertyRef Name="sysuserroleid" />
+            </Principal>
+            <Dependent Role="sysuser">
+              <PropertyRef Name="sysuserid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBPerpusEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="bukus" EntityType="Self.buku" />
+          <EntitySet Name="laporans" EntityType="Self.laporan" />
+          <EntitySet Name="lookuproles" EntityType="Self.lookuprole" />
+          <EntitySet Name="pelanggans" EntityType="Self.pelanggan" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="sysuserprofiles" EntityType="Self.sysuserprofile" />
+          <EntitySet Name="sysuserroles" EntityType="Self.sysuserrole" />
+          <EntitySet Name="sysusers" EntityType="Self.sysuser" />
+          <AssociationSet Name="FK_laporan_buku" Association="Self.FK_laporan_buku">
+            <End Role="buku" EntitySet="bukus" />
+            <End Role="laporan" EntitySet="laporans" />
+          </AssociationSet>
+          <AssociationSet Name="FK_laporan_pelanggan" Association="Self.FK_laporan_pelanggan">
+            <End Role="pelanggan" EntitySet="pelanggans" />
+            <End Role="laporan" EntitySet="laporans" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sysuserrole_lookuprole" Association="Self.FK_sysuserrole_lookuprole">
+            <End Role="lookuprole" EntitySet="lookuproles" />
+            <End Role="sysuserrole" EntitySet="sysuserroles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sysuser_sysuserprofile" Association="Self.FK_sysuser_sysuserprofile">
+            <End Role="sysuserprofile" EntitySet="sysuserprofiles" />
+            <End Role="sysuser" EntitySet="sysusers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sysuser_sysuserrole" Association="Self.FK_sysuser_sysuserrole">
+            <End Role="sysuserrole" EntitySet="sysuserroles" />
+            <End Role="sysuser" EntitySet="sysusers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DBPerpusModelStoreContainer" CdmEntityContainer="DBPerpusEntities1">
+          <EntitySetMapping Name="bukus">
+            <EntityTypeMapping TypeName="DBPerpusModel.buku">
+              <MappingFragment StoreEntitySet="buku">
+                <ScalarProperty Name="id_buku" ColumnName="id_buku" />
+                <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+                <ScalarProperty Name="judul" ColumnName="judul" />
+                <ScalarProperty Name="penulis" ColumnName="penulis" />
+                <ScalarProperty Name="penerbit" ColumnName="penerbit" />
+                <ScalarProperty Name="tahun" ColumnName="tahun" />
+                <ScalarProperty Name="stok" ColumnName="stok" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="laporans">
+            <EntityTypeMapping TypeName="DBPerpusModel.laporan">
+              <MappingFragment StoreEntitySet="laporan">
+                <ScalarProperty Name="id_laporan" ColumnName="id_laporan" />
+                <ScalarProperty Name="id_buku" ColumnName="id_buku" />
+                <ScalarProperty Name="id_pelanggan" ColumnName="id_pelanggan" />
+                <ScalarProperty Name="keterangan" ColumnName="keterangan" />
+                <ScalarProperty Name="tgl_pinjam" ColumnName="tgl_pinjam" />
+                <ScalarProperty Name="tgl_kembali" ColumnName="tgl_kembali" />
+                <ScalarProperty Name="saldo" ColumnName="saldo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="lookuproles">
+            <EntityTypeMapping TypeName="DBPerpusModel.lookuprole">
+              <MappingFragment StoreEntitySet="lookuprole">
+                <ScalarProperty Name="lookuproleid" ColumnName="lookuproleid" />
+                <ScalarProperty Name="rolename" ColumnName="rolename" />
+                <ScalarProperty Name="roledescription" ColumnName="roledescription" />
+                <ScalarProperty Name="rowcreatedsysuserid" ColumnName="rowcreatedsysuserid" />
+                <ScalarProperty Name="rowcreateddatetime" ColumnName="rowcreateddatetime" />
+                <ScalarProperty Name="rowmodifiedsysuserid" ColumnName="rowmodifiedsysuserid" />
+                <ScalarProperty Name="rowmodifieddatetime" ColumnName="rowmodifieddatetime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="pelanggans">
+            <EntityTypeMapping TypeName="DBPerpusModel.pelanggan">
+              <MappingFragment StoreEntitySet="pelanggan">
+                <ScalarProperty Name="id_pelanggan" ColumnName="id_pelanggan" />
+                <ScalarProperty Name="no_id" ColumnName="no_id" />
+                <ScalarProperty Name="nama" ColumnName="nama" />
+                <ScalarProperty Name="alamat" ColumnName="alamat" />
+                <ScalarProperty Name="no_tlp1" ColumnName="no_tlp1" />
+                <ScalarProperty Name="no_tlp2" ColumnName="no_tlp2" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="DBPerpusModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysuserprofiles">
+            <EntityTypeMapping TypeName="DBPerpusModel.sysuserprofile">
+              <MappingFragment StoreEntitySet="sysuserprofile">
+                <ScalarProperty Name="sysuserprofileid" ColumnName="sysuserprofileid" />
+                <ScalarProperty Name="sysuserid" ColumnName="sysuserid" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="rowcreatedsysuserid" ColumnName="rowcreatedsysuserid" />
+                <ScalarProperty Name="rowcreateddatetime" ColumnName="rowcreateddatetime" />
+                <ScalarProperty Name="rowmodifiedsysuserid" ColumnName="rowmodifiedsysuserid" />
+                <ScalarProperty Name="rowmodifieddatetime" ColumnName="rowmodifieddatetime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysuserroles">
+            <EntityTypeMapping TypeName="DBPerpusModel.sysuserrole">
+              <MappingFragment StoreEntitySet="sysuserrole">
+                <ScalarProperty Name="sysuserroleid" ColumnName="sysuserroleid" />
+                <ScalarProperty Name="sysuserid" ColumnName="sysuserid" />
+                <ScalarProperty Name="lookuproleid" ColumnName="lookuproleid" />
+                <ScalarProperty Name="isactive" ColumnName="isactive" />
+                <ScalarProperty Name="rowcreatedsysuserid" ColumnName="rowcreatedsysuserid" />
+                <ScalarProperty Name="rowcreateddatetime" ColumnName="rowcreateddatetime" />
+                <ScalarProperty Name="rowmodifiedsysuserid" ColumnName="rowmodifiedsysuserid" />
+                <ScalarProperty Name="rowmodifieddatetime" ColumnName="rowmodifieddatetime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysusers">
+            <EntityTypeMapping TypeName="DBPerpusModel.sysuser">
+              <MappingFragment StoreEntitySet="sysuser">
+                <ScalarProperty Name="sysuserid" ColumnName="sysuserid" />
+                <ScalarProperty Name="loginname" ColumnName="loginname" />
+                <ScalarProperty Name="passwordencryptedtext" ColumnName="passwordencryptedtext" />
+                <ScalarProperty Name="rowcreatedsysuserid" ColumnName="rowcreatedsysuserid" />
+                <ScalarProperty Name="rowcreateddatetime" ColumnName="rowcreateddatetime" />
+                <ScalarProperty Name="rowmodifiedsysuserid" ColumnName="rowmodifiedsysuserid" />
+                <ScalarProperty Name="rowmodifieddatetime" ColumnName="rowmodifieddatetime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
